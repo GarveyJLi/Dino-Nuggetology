@@ -1,4 +1,4 @@
-# datahacks_2024
+# Dino-Nuggetology
 UCSD 2024 DataHacks Entry
 * Team Name: Decaffeinated
 * Team Members: So Hirota, Penny King, Garvey Li
