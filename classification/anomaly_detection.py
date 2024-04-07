@@ -35,3 +35,4 @@ def anomaly_detection(fp):
     return mse
 
 
+anomaly_detection()
