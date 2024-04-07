@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from skimage import data
 from scipy.ndimage import gaussian_filter
 from scipy.signal import convolve2d
+import imutils
 
 def load_gray_image(img_path) :
     img = Image.open(img_path).convert('L').resize((200, 200), resample=Image.LANCZOS)
@@ -107,4 +108,5 @@ def edge_detection(img):
       gmag_nms[y, x] = temp_mag
 
   return gmag, ang, gmag_nms
-
+   
+   
