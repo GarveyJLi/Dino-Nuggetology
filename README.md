@@ -10,7 +10,7 @@ Our model has potential use cases in product quality detection, specifically in 
 
 
 ### Data
-All of our data we collected ourselves using the “Dino Nuggies” brand. In total there are 7 dinosaur shapes which are T-rex, Triceratops, Pterodactyl, Stegosaurus, Brontosaurus, and Parasaurolophus. And there is also an additional shape we created for the purposes of our assignment –– the “deformed” shape.
+All of our data we collected ourselves using the “Dino Buddies” brand. In total there are 7 dinosaur shapes which are T-rex, Triceratops, Pterodactyl, Stegosaurus, Brontosaurus, and Parasaurolophus. And there is also an additional shape we created for the purposes of our assignment –– the “deformed” shape.
 
 
 We took over 200 photos of various dino nugies on a white paper plate all from the same distance from the camera. We created additional data points by mirroring photos and rotating our photos in increments of 15 degrees. This allows our model to generalize to various orientations. In total this resulted in over 10 thousand photos in our dataset.
