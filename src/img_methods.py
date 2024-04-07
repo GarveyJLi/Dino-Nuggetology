@@ -109,6 +109,7 @@ def edge_detection(img):
   return gmag, ang, gmag_nms
 
 
+# DO NOT USE THIS TO ROTATE AN IMAGE. USE rotate_image() instead.
 def rotate_linear(img, h):
     """
     img: source image
@@ -150,4 +151,41 @@ def rotate_linear(img, h):
                 rot_img[y][x] = np.round(pixel_val)
 
     return rot_img
+  
+  
+  # function that calculates the 2D transformation matrix for rotating an image about its center
+def get_transformation_matrix(img_hgt, img_wdt, rot):
+     """
+     input:
+     img_ht: image height in pixels
+     img_wt: image width in pixels
+     rot: rotation angle in radians
 
+     output: 
+     h: 2D transformation matrix
+     """
+     # your code here
+     center_y, center_x = np.array([img_hgt, img_wdt]) // 2
+
+     # Translation transformation matrix to map center to origin
+     ht = np.array([[1, 0, center_x], [0, 1, center_y], [0, 0, 1]])
+
+     # Rotation transformation matrix about the origin
+     hr = np.array([[np.cos(rot), -np.sin(rot), 0], 
+          [np.sin(rot), np.cos(rot), 0],
+          [0, 0, 1]])
+     
+     # Inverse translation of the translation transformation matrix above
+     ht_inv = np.linalg.inv(ht)
+
+     # H = Ht * Hr * Ht-1
+     h = ht@hr@ht_inv
+  
+     return h    
+   
+   
+def rotate_image(img, deg):
+    return rotate_linear(img, get_transformation_matrix(img.shape[0], img.shape[1], np.deg2rad(deg))) 
+   
+   
+   
