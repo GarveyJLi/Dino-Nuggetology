@@ -1,4 +1,5 @@
 from img_methods import *
+from scipy.ndimage import zoom
 
 
 def process_image(img_path):
@@ -24,9 +25,12 @@ def process_image(img_path):
     binary_gmag = gmag > 0.65
     original_edge = np.clip(binary_gmag * 255, 0, 255)
     mirrored = np.flip(original_edge)
-    # Rotate
     
+    all_imgs = []
+    for deg in rotation_degrees:
+        all_imgs.append(rotate_image(original_edge, deg))
+    for deg in rotation_degrees:
+        all_imgs.append(rotate_image(mirrored, deg))
     
-    
-    return 
+    return all_imgs
 
