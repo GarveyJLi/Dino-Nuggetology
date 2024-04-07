@@ -108,3 +108,46 @@ def edge_detection(img):
 
   return gmag, ang, gmag_nms
 
+
+def rotate_linear(img, h):
+    """
+    img: source image
+    h: 2D transformation matrix
+
+    returns:
+    rot_img: image after rotation
+    """
+    # your code here
+    img_hgt = img.shape[0]
+    img_wdt = img.shape[1]
+
+    rot_img = np.zeros(img.shape)
+
+    for y in range(img_hgt):
+        for x in range(img_wdt):
+            # Finding the inverse coordinates of the destination coordinates
+            # x = H-1x'
+            inverse_coords = np.dot(h, np.array([x, y, 1]))
+            xi, yi, _ = inverse_coords
+
+            # Calculating x0, x1, y0, and y1 for linear interpolation
+            x0 = np.int64(np.floor(xi))
+            x1 = x0 + 1
+            y0 = np.int64(np.floor(yi))
+            y1 = y0 + 1
+          
+            # Checking if x0, x1, y0, y1 are in the original image
+            if (x0 >= 0 and x0 < img_wdt and y0 >= 0 and y0 < img_hgt and 
+                x1 >= 0 and x1 < img_wdt and y1 >= 0 and y1 < img_hgt):
+                # Calculating pixel values between x0 and x1 for each at xi
+                # for each y0, y1
+                a = (x1-xi) * img[y0][x0] + (xi-x0) * img[y0][x1]
+                b = (x1-xi) * img[y1][x0] + (xi-x0) * img[y1][x1]
+                # Calculating pixel value between a and b at yi
+                pixel_val = (y1-yi) * a + (yi-y0) * b
+                # Setting pixel value at destination coordinates to 
+                # previously calculated pixel value
+                rot_img[y][x] = np.round(pixel_val)
+
+    return rot_img
+
