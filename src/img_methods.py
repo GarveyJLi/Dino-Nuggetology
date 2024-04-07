@@ -1,14 +1,9 @@
 import numpy as np
-import pandas as pd
-import os
 from PIL import Image
-
 import matplotlib.pyplot as plt
 from skimage import data
-from skimage.color import rgb2gray
 from scipy.ndimage import gaussian_filter
 from scipy.signal import convolve2d
-import cv2
 
 def load_gray_image(img_path) :
     img = Image.open(img_path).convert('L').resize((200, 200), resample=Image.LANCZOS)
@@ -71,8 +66,8 @@ def edge_detection(img):
   sobel_x = [[-1, 0, 1],
              [-2, 0, 2],
              [-1, 0, 1]]
-  gy = convolve2d(gsimg, sobel_y)
-  gx = convolve2d(gsimg, sobel_x)
+  gy = convolve2d(gsimg, sobel_y, mode='same', fillvalue=1)
+  gx = convolve2d(gsimg, sobel_x, mode='same', fillvalue=1)
   gmag = np.sqrt(gy ** 2 + gx ** 2)
   ang = np.arctan2(gy, gx)
   
