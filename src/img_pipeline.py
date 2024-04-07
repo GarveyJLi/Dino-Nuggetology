@@ -17,5 +17,5 @@ def process_image(img_path):
     gauss_img = gaussian_lpf(gray_img, 42 ** 2)
     
     gmag, ang, gmag_nms = edge_detection(gauss_img)
-    return gmag * 255
+    return np.clip(gmag * 255, 0, 255)
 
